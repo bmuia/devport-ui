@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   LayoutDashboard,
   KeyRound,
@@ -10,47 +10,51 @@ import {
   LogOut,
   ToggleRight,
   ToggleLeft,
-} from 'lucide-react'
+} from 'lucide-react';
+
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
-  const [mode, setMode] = useState('test')
+  const [mode, setMode] = useState('test');
 
   const toggleMode = () => {
-    setMode(prev => (prev === 'test' ? 'live' : 'test'))
-  }
+    setMode(prev => (prev === 'test' ? 'live' : 'test'));
+  };
 
+  // Added 'to' properties for all links to ensure proper navigation
+  // The 'to' paths are relative to the parent route (e.g., /dashboard)
   const links = [
-    { name: 'Overview', icon: LayoutDashboard },
-    { name: 'Apps', icon: AppWindow },
-    { name: 'Access Token Keys', icon: KeyRound },
-    { name: 'API Explorer', icon: Terminal },
-    { name: 'Webhooks', icon: RadioTower },
-    { name: 'Logs', icon: FileClock },
-    { name: 'Docs', icon: BookText },
-  ]
+    { name: 'Overview', icon: LayoutDashboard, to: '/dashboard' }, // Changed to absolute path for clarity
+    { name: 'Apps', icon: AppWindow, to: '/dashboard/app' },
+    { name: 'Access Token Keys', icon: KeyRound, to: '/dashboard/access-keys' },
+    { name: 'API Explorer', icon: Terminal, to: '/dashboard/api-explorer' },
+    { name: 'Webhooks', icon: RadioTower, to: '/dashboard/webhooks' },
+    { name: 'Logs', icon: FileClock, to: '/dashboard/logs' },
+    { name: 'Docs', icon: BookText, to: '/dashboard/docs' },
+  ];
 
   return (
     <div className="h-screen w-64 bg-white border-r shadow-sm flex flex-col justify-between p-6">
       {/* Logo / Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-800 mb-8">DevPort</h1>
-        
+
         {/* Navigation */}
         <ul className="space-y-4">
-          {links.map(({ name, icon: Icon }) => (
+          {links.map(({ name, icon: Icon, to }) => ( // Destructure 'to' from the link object
             <li key={name}>
-              <a
-                href="#"
+              <Link
+                to={to} // Use the 'to' property for navigation
                 className="flex items-center text-gray-600 hover:text-blue-600 transition font-medium text-sm px-2 py-2 rounded-lg hover:bg-gray-100"
               >
                 <Icon size={18} className="mr-3" />
                 {name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
-
+  
       {/* Bottom controls */}
       <div className="space-y-4">
         {/* Mode Toggle */}
@@ -69,7 +73,7 @@ function Sidebar() {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;

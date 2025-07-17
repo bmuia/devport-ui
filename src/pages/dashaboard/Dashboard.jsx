@@ -1,5 +1,6 @@
-import React from 'react'
-import Sidebar from './Sidebar'
+import React from "react";
+import Sidebar from "./Sidebar";
+import { Outlet } from "react-router-dom";
 
 export default function Dashboard() {
   return (
@@ -9,16 +10,10 @@ export default function Dashboard() {
         <Sidebar />
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-6 overflow-y-auto">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome to Your Dev Sandbox</h1>
-        <p className="text-gray-600">This is where your API keys, logs, and integrations will show.</p>
-
-        <div className="mt-6 p-4 bg-white border rounded-xl shadow-sm">
-          <h2 className="text-lg font-medium text-gray-700 mb-2">Activity Logs</h2>
-          <p className="text-sm text-gray-500">No recent activity. Make some API calls in test mode to populate this.</p>
-        </div>
+      {/* Main content area where nested routes will be rendered */}
+      <div className="flex-1 p-8 overflow-auto">
+        <Outlet /> {/* This is where the content of nested routes (like ProductApp) will appear */}
       </div>
     </div>
-  )
+  );
 }
